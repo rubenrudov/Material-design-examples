@@ -80,6 +80,11 @@ def handle_client(client_socket):
                     for letter in range(13, len(resource)):
                         if resource[letter].isdigit() and resource[letter + 1].isdigit():
                             digit += letter
+                        elif resource[letter].isdigit() and not resource[letter + 1].isdigit():
+                            digit += letter
+                            break
+                        else:
+                            pass
                     client_socket.sendall(str(int(digit) + 1).encode())
                 else:
                     handle_request(resource, client_socket)
