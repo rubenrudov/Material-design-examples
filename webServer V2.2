@@ -131,7 +131,7 @@ def handle_request(resource, client_socket):
                 content = data
         header = "content-length:" + str(len(content)) + "\r\n\r\n"     # HTTP header creating
         if "." in url:
-            f_type = url.split(".")[-1].replace(r"\ ", "")
+            f_type = url.split(".")[-1].replace(r"\ "[0], "")
             header += unique_response(f_type)
         http_response = response + header + content                      # Creating response
         client_socket.send(http_response)                                # Sends the response to the client
