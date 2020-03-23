@@ -1,0 +1,96 @@
+"""
+    Author: Ruben (Ruby) Rdov
+    Version: 1.1
+    Date: 23/03/2020
+    Purpose: S.M.T.P client with GUI - have to configure the plain username and password parameters according to yours
+"""
+
+import tkinter as tk
+import socket
+import base64
+from time import sleep
+# consts
+USER = "<>"
+PASS = "<>"
+packet = [
+        f"MAIL FROM: <NONE>\r\n",
+        f"RCPT TO: <NONE>\r\n",
+        "DATA\r\n",
+        f"Subject: NONE\r\n"
+        f"FROM: NONE\r\n"
+        f"TO: NONE\r\n"
+        f"\r\nNONE\r\n",
+        "\r\n.\r\n",
+        "QUIT\r\n"
+         ]
+# /consts
+
+def send(client_sock):
+    global packet
+    try:
+        for i in range(len(packet)):
+            client_sock.send(packet[i].encode())
+            data = client_sock.recv(1024).decode()
+            print(data)
+    except Exception as e:
+        print(e)
+
+
+def plain(client_sock):
+    global packet
+    auth_str = f"\00{USER}\00{PASS}".encode()  # Authenticating with the server (LOGIN)
+    b64str = base64.b64encode(auth_str)
+    msg = "AUTH PLAIN ".encode() + b64str + "\r\n".encode()
+    print(msg)
+    client_sock.send(msg)
+    send(client_sock)
+
+
+def create_connection():
+    client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_sock.connect(("smtp.mailtrap.io", 2525))
+    plain(client_sock)
+
+
+def conf():
+    global packet
+    packet[0] = f"MAIL FROM: <{mail_from.get()}>\r\n"
+    packet[1] = f"RCPT TO: <{mail_to.get()}>\r\n"
+    packet[3] = f"Subject: {sub.get()}\r\n" f"FROM: {mail_from.get()}\r\n" + f"TO: {mail_to.get()}\r\n" + f"\r\n{data.get(1.0, tk.END)}\r\n"
+    print(packet)
+    create_connection()
+    sleep(3)
+    win.destroy()
+
+
+win = tk.Tk()
+win.geometry("1000x1000")
+win.title("New mail")
+win.config(bg="LightSteelBlue2")
+# ---------------From, To------------------------------------
+text_from = tk.Label(win, text="From: ", bg="LightSteelBlue2", fg="black", font=("arial", 16))
+text_from.grid(column=0, row=0, sticky="w")
+mail_from = tk.Entry(win, textvariable=None, bg="white", fg="black", font=("arial", 16), width=50)
+mail_from.grid(column=1, row=0)
+text_to = tk.Label(win, text="To: ", bg="LightSteelBlue2", fg="black", font=("arial", 16))
+text_to.grid(column=0, row=1, sticky="w")
+mail_to = tk.Entry(win, textvariable=None, bg="white", fg="black", font=("arial", 16), width=50)
+mail_to.grid(column=1, row=1)
+# ---------------Subject and message--------------------------
+text_sub = tk.Label(win, text="Subject: ", bg="LightSteelBlue2", fg="black", font=("arial", 16))
+text_sub.grid(column=0, row=2, sticky="w")
+sub = tk.Entry(win, textvariable=None, bg="white", fg="black", font=("arial", 16), width=50)
+sub.grid(column=1, row=2)
+# ----------------Message box----------------------------------
+text_data = tk.Label(win, text="Your message: ", bg="LightSteelBlue2", fg="black", font=("arial", 16))
+text_data.grid(column=0, row=3, sticky="w")
+data = tk.Text(win, bg="white", fg="black", font=("arial", 16), width=50, height=20)
+data.grid(column=1, row=3, rowspan=20)
+# ----------------Submit button--------------------------------
+submit = tk.Button(win, text="Send", fg="black", font=("arial", 16), command=lambda: conf())
+submit.grid(column=1, row=35)
+# ------------------------------------------------
+
+
+win.mainloop()
+
