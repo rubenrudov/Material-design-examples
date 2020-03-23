@@ -3,15 +3,16 @@
     Version: 1.1
     Date: 23/03/2020
     Purpose: S.M.T.P client with GUI - have to configure the plain username and password parameters according to yours
+    Notice please: In this client there is not a TLS, SSl or any type of information security
 """
 
 import tkinter as tk
 import socket
 import base64
 from time import sleep
-# consts
-USER = "<>"
-PASS = "<>"
+USER = "57917ca47b807b"    # Change to the current username
+PASS = "05f6bc6cdddea6"    # Change to the current password
+
 packet = [
         f"MAIL FROM: <NONE>\r\n",
         f"RCPT TO: <NONE>\r\n",
@@ -23,9 +24,12 @@ packet = [
         "\r\n.\r\n",
         "QUIT\r\n"
          ]
-# /consts
+
 
 def send(client_sock):
+    """
+    :param client_sock: connection between the client to the server
+    """
     global packet
     try:
         for i in range(len(packet)):
@@ -37,6 +41,10 @@ def send(client_sock):
 
 
 def plain(client_sock):
+    """
+    :param client_sock: connection between the client to the server
+    plains to the server according to the username and password - then it sends it to send message
+    """
     global packet
     auth_str = f"\00{USER}\00{PASS}".encode()  # Authenticating with the server (LOGIN)
     b64str = base64.b64encode(auth_str)
@@ -47,8 +55,9 @@ def plain(client_sock):
 
 
 def create_connection():
+    """ Creates a connection and sends it for planing """
     client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_sock.connect(("smtp.mailtrap.io", 2525))
+    client_sock.connect(("smtp.mailtrap.io", 2525))    # Your SMTP server + standard port (465, 2525, 25, 587)
     plain(client_sock)
 
 
