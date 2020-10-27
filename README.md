@@ -1,15 +1,6 @@
-"# Web-Server" 
-"# CoronaVirus-windowns-form" 
-"# CoronaVirus-windowns-form" 
-"# CoronaVirus-windowns-form" 
-"# SMTP-client" 
-"# SMTP-client" 
-"# Gmail-mailer---desktop-open-source-app" 
-"# Gmail-mailer---desktop-open-source-app" 
-"# Gmail-mailer---desktop-open-source-app" 
-"# mail-desktop-application" 
-"# SMTP-client" 
-"# SMTP-client" 
-"# Blog-site---Flask" 
-"# Social-media-project" 
-"# CSS-type-effect" 
+# UI design examples for android.
+## manual and material designs
+
+Made by Ruben Rudov([github profile](https://github.com/rubenrudov)).
+
+Hope you'll find it useful :smiley: :fire:
