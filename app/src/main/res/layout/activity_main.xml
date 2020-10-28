@@ -16,17 +16,19 @@
         android:layout_marginTop="40dp"
         android:src="@drawable/ic_logo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/logo" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:textDirection="rtl"
         android:background="@drawable/edittext2_borders"
         android:padding="8dp"
-        android:drawableRight="@drawable/ic_user"
+        android:drawableStart="@drawable/ic_user"
         android:ems="10"
-        android:hint="Username"
+        android:hint="שם משתמש"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
         android:inputType="textPersonName"
@@ -39,19 +41,19 @@
         android:id="@+id/editText2"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:textDirection="rtl"
         android:background="@drawable/edittext2_borders"
         android:padding="8dp"
-        android:drawableRight="@drawable/ic_password"
+        android:drawableStart="@drawable/ic_user"
         android:ems="10"
-        android:hint="Password"
+        android:hint="סיסמה"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
-        android:inputType="textPassword"
-
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
         android:textSize="22sp"
         android:layout_marginBottom="130dp"
         android:layout_alignBottom="@+id/cardView"
-        android:layout_alignLeft="@+id/editText"
         android:layout_alignStart="@+id/editText" />
 
     <androidx.cardview.widget.CardView
@@ -68,13 +70,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Login"
+                android:text="התחבר"
+                android:textFontWeight="900"
                 android:textColor="#fff"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -84,7 +86,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Here."
+        android:text="לדף ההרשמה לחץ כאן"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:layout_above="@+id/linearLayout"
